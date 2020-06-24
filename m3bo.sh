@@ -120,7 +120,7 @@ echo
 
 while true; do
   data="$(curl -s -H "$AUTH" "$BASE_URL")"
-  mergeable_state="$(echo "$data" | jq -r .mergeable_state)"
+  mergeable_state="$(printf '%s' "$data" | jq -r .mergeable_state)"
   echo -n "[$(date)] State '$mergeable_state'"
 
   # mergeable_state (possibly incomplete list):
@@ -170,7 +170,7 @@ while true; do
 
   unknown)
     # may already be merged or something else, so check
-    merged="$(echo "$data" | jq -r .merged)"
+    merged="$(printf '%s' "$data" | jq -r .merged)"
     if [ "$merged" == true ]; then
       echo ', already MERGED, nothing more to do'
       exit
