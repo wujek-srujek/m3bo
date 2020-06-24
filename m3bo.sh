@@ -18,7 +18,49 @@
 # - cURL (for issuing HTTP requests)
 # - jq (for JSON processing)
 # - BMW_GITHUB_TOKEN env variable (for auth)
-
+#
+# Configuration:
+# - Install the necessary software. You very likely already have BASH. For
+#   everything else, you would ideally use a package manager, below an example
+#   for Homebrew:
+#   brew install curl jq
+# - Download the script.
+# - Make it executable:
+#   chmod +x m3bo.sh
+# - Generate a personal access token in GitHub:
+#   - Click your avatar (currently top right corner).
+#   - Go to 'Settings' -> 'Developer settings' -> 'Personal access tokens'.
+#   - Click 'Generate new token'.
+#   - Give the token a name and select the scopes (the bot currently only
+#     requires the 'repo' scope).
+#   - Copy the token right now, you won't be able to see it later.
+# - Define the BMW_GITHUB_TOKEN env variable with the value of the token.
+#   The best option is to put the following in your rc file (the actual file
+#   depends on the shell you are running, e.g. .bashrc or .zshrc):
+#   export BMW_GITHUB_TOKEN=<your token>
+#   (without the < and > characters).
+# - Start a new shell session (so that the env variable is loaded into it).
+# - Check whether the variable is seen by invoking:
+#   echo $BMW_GITHUB_TOKEN
+#   If everything is OK, you will see your token as output and you are good
+#   to go. If not, re-read and re-do the configuration steps again.
+#
+# How to run:
+# After the necessary configuration, you can run the bot simply by issuing:
+# ./m3bo.sh <repository name> <PR number> <sleep period in seconds>
+# where:
+# - <repository name> is a repository within the mobile20 organization.
+# - <PR number> is a number you can find on the PR page (NOT ticket number).
+# - <sleep period in seconds> defines how much time the bot will sleep before it
+# checks the PR status again.
+# NOTE: it is important to run the bot as shown above so that its shabang is
+# used to let the system find BASH.
+# As you can see a complete invocation needs some arguments. A complete example
+# would be:
+# ./m3bo.sh mobile-connected 666 3
+# i.e. PR request #666 in the mobile-connected repository will be checked every
+# 3 seconds.
+#
 # Purpose: a PR can be merged once approved, successfully built and, in some
 # repositories, if it incorporates latest changes from upstream (which is master
 # most of the time). This may be an issue if upstream changes very often and the
